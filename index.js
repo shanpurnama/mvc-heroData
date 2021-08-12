@@ -39,4 +39,4 @@ if (command[0] === 'read') {
     })
 }
 
-// delete
+// tambahin delete data berdasarkan hero_id
