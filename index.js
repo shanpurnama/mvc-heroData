@@ -14,13 +14,6 @@ if (command[0] === 'read') {
    })
 
 } else if (command[0] === 'write') {
-    // var newDataHero = {
-    //     hero_id: dataJson.hero[0].hero_id,
-    //     hero_name: command[1],
-    //     hero_avatar: command[2],
-    //     hero_role: command[3],
-    //     hero_specially: command[4]
-    // }
     fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
         if (err) {
             console.log(err)
