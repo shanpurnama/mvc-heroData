@@ -40,3 +40,4 @@ if (command[0] === 'read') {
 }
 
 // tambahin delete data berdasarkan hero_id
+// oke succesfully to add
