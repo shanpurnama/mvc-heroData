@@ -1,14 +1,28 @@
+const { resolveCname } = require('dns')
 var fs = require('fs')
+var model = require('./model')
+
+
 function getDataHero() {
+    model.readFile()
+        .then(data => {
+            console.log(data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+
+
     // console.log('succes to run this function')
-    fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
-               if (err) {
-                   console.log(err, 'This is eror!')
-               } else {
-                   var dataHero = JSON.parse(data)
-                   console.log(dataHero)
-               }
-           })
+    // fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
+    //            if (err) {
+    //                console.log(err, 'This is eror!')
+    //            } else {
+    //                var dataHero = JSON.parse(data)
+    //                console.log(dataHero)
+    //            }
+    //        })
 }
 
 function createDataHero(heroName, heroAvatar, heroRole, heroSpecially) {
@@ -41,27 +55,42 @@ function createDataHero(heroName, heroAvatar, heroRole, heroSpecially) {
 }
 
 function deleteDataHero(heroId) {
-    // console.log('this metode to delete')
-    console.log(heroId)
-    fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
-        if (err) {
-            console.log(err, 'This is eror!')
-        } else {
-            var dataJsonParse = JSON.parse(data)
-            for (var i = 0; i < dataJsonParse.hero.length; i++) {
-                if(heroId === dataJsonParse.hero[i].hero_id.toString()) {
-                    dataJsonParse.hero.splice(i, 1)
+    model.readFile()
+        .then(data => {
+            for (var i = 0; i < data.hero.length; i++) {
+                if(heroId === data.hero[i].hero_id.toString()) {
+                    data.hero.splice(i, 1)
                 }
             }
-            var dataStringify = JSON.stringify(dataJsonParse)
-            // fs.writeFile('./db/heroData.json', dataStringify, 'utf-8', function(err) {
-            //     if (err) {
-            //         console.log(err, 'This is eror!')
-            //     }
-            //     console.log('success')
-            // })
-        } 
-    })
+            var dataStringify = JSON.stringify(data)
+            fs.writeFile('./db/heroData.json', dataStringify, 'utf-8', function(err) {
+                if (err) {
+                    console.log(err, 'This is eror!')
+                }
+                console.log('success')
+            })
+        })
+
+    // console.log('this metode to delete')
+    // fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
+    //     if (err) {
+    //         console.log(err, 'This is eror!')
+    //     } else {
+    //         var dataJsonParse = JSON.parse(data)
+    //         for (var i = 0; i < dataJsonParse.hero.length; i++) {
+    //             if(heroId === dataJsonParse.hero[i].hero_id.toString()) {
+    //                 dataJsonParse.hero.splice(i, 1)
+    //             }
+    //         }
+    //         var dataStringify = JSON.stringify(dataJsonParse)
+    //         fs.writeFile('./db/heroData.json', dataStringify, 'utf-8', function(err) {
+    //             if (err) {
+    //                 console.log(err, 'This is eror!')
+    //             }
+    //             console.log('success')
+    //         })
+    //     } 
+    // })
     
 }
 
