@@ -67,9 +67,12 @@ function deleteDataHero(heroId) {
                 if (err) {
                     console.log(err, 'This is eror!')
                 }
-                console.log('success')
+                console.log('success delete')
             })
         })
+            .catch(err => {
+                console.log(err)
+            })
 
     // console.log('this metode to delete')
     // fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
