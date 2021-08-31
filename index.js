@@ -1,7 +1,6 @@
 var process = require('process')
 var  fs = require('fs')
 var command = process.argv.slice(2)
-// var controller = require('./controller.js')
 var controller = require('./controller')
 
 
