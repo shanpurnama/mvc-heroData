@@ -16,5 +16,5 @@ if (command[0] === 'read') {
     console.log('=> READ', '- USER must find a way to get data to read.')
     console.log('=> CREATE', '- USER should search how to get heroID, newHeroName, newHeroAvatar, newHeroRole and newHeroSpecially before user set.')
     console.log('=> DELETE', '- USER must input and find heroId before they execute.')
-    console.log('=> UPDATE', 'USER must set heroId to change to new data')
+    console.log('=> UPDATE', '- USER must set heroId to change to new data')
 }
