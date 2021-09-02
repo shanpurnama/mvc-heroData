@@ -1,3 +1,4 @@
+const { resolveCname } = require('dns')
 var fs = require('fs')
 
 function readFile() {
@@ -12,7 +13,20 @@ function readFile() {
         })
     })
 }
+function writeFile(data) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./db/heroData.json', data, 'utf-8', function(err) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve()
+            }
+        })
+    })
+    
+}
 
 module.exports = {
-    readFile
+    readFile,
+    writeFile
 }
