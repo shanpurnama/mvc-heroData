@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "status": 200,
+  "rowCount": 87,
+  "message": "Successful",
+  "user": [
+    {
+      "user_id": 1,
+      "user_name": "user123",
+      "password": "user123",
+      "user_role": "user"
+    },
+    {
+      "user_id": 2,
+      "user_name": "shandy",
+      "password": "shandy123",
+      "user_role": "user"
+    }
+  ]
+}

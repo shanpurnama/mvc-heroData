@@ -1,7 +1,7 @@
 const { resolveCname } = require('dns')
 var fs = require('fs')
 
-function readFile() {
+function readFileHero() {
     return new Promise((resolve, reject) => {
         fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
             if (err) {
@@ -13,7 +13,8 @@ function readFile() {
         })
     })
 }
-function writeFile(data) {
+
+function writeFileHero(data) {
     return new Promise((resolve, reject) => {
         fs.writeFile('./db/heroData.json', data, 'utf-8', function(err) {
             if (err) {
@@ -26,7 +27,36 @@ function writeFile(data) {
     
 }
 
+function readDataUser() {
+    return new Promise((resolve, reject) => {
+        fs.readFile('./db/userData.json', 'utf-8', function(err, data) {
+            if (err) {
+                reject(err)
+            } else {
+                var dataUser = JSON.parse(data)
+                resolve(dataUser)
+            }
+        })
+    })
+}
+
+function writeDataUser(data) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./db/userData.json', data, 'utf-8', function(err) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve()
+            }
+        })
+    })
+}
+
+
+
 module.exports = {
-    readFile,
-    writeFile
+    readFileHero,
+    writeFileHero,
+    readDataUser,
+    writeDataUser
 }
