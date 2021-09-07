@@ -1,48 +1,21 @@
-const { resolveCname } = require('dns')
 var fs = require('fs')
 
-function readFileHero() {
+function readAllData(dataType) {
     return new Promise((resolve, reject) => {
-        fs.readFile('./db/heroData.json', 'utf-8', function(err, data) {
+        fs.readFile(`./db/${dataType}.json`, 'utf-8', function(err, data) {
             if (err) {
                 reject(err)
             } else {
-                var dataHero = JSON.parse(data)
-                resolve(dataHero)
+                var readData = JSON.parse(data)
+                resolve(readData)
             }
         })
     })
 }
 
-function writeFileHero(data) {
+function writeAllData(dataType, data) {
     return new Promise((resolve, reject) => {
-        fs.writeFile('./db/heroData.json', data, 'utf-8', function(err) {
-            if (err) {
-                reject(err)
-            } else {
-                resolve()
-            }
-        })
-    })
-    
-}
-
-function readDataUser() {
-    return new Promise((resolve, reject) => {
-        fs.readFile('./db/userData.json', 'utf-8', function(err, data) {
-            if (err) {
-                reject(err)
-            } else {
-                var dataUser = JSON.parse(data)
-                resolve(dataUser)
-            }
-        })
-    })
-}
-
-function writeDataUser(data) {
-    return new Promise((resolve, reject) => {
-        fs.writeFile('./db/userData.json', data, 'utf-8', function(err) {
+        fs.writeFile(`./db/${dataType}.json`, data, 'utf-8', function(err) {
             if (err) {
                 reject(err)
             } else {
@@ -51,12 +24,9 @@ function writeDataUser(data) {
         })
     })
 }
-
 
 
 module.exports = {
-    readFileHero,
-    writeFileHero,
-    readDataUser,
-    writeDataUser
+    readAllData,
+    writeAllData
 }

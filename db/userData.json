@@ -15,6 +15,12 @@
       "user_name": "shandy",
       "password": "shandy123",
       "user_role": "user"
+    },
+    {
+      "user_id": 3,
+      "user_name": "admin",
+      "password": "admin123",
+      "user_role": "admin"
     }
   ]
 }

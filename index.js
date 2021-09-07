@@ -10,9 +10,9 @@ if (command[0] === 'register') {
 } else if (command[2] === 'create') {
     controller.createDataHero(command[0], command[1], command[3], command[4], command[5], command[6]) 
 } else if (command[2] === 'delete') {
-    controller.deleteDataHero(command[3], command[0], command[1])
+    controller.deleteDataHero(command[0], command[1], command[3])
 } else if (command[2] === 'update') {
     controller.updateDataHero(command[0],command[1], command[3], command[4], command[5], command[6], command[7])
 } else {
-
+    
 }
