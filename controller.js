@@ -23,27 +23,48 @@ function createUserData(userName, userPassword) {
         })
 }
 
-function getDataHero(userName, userPassword) {
-    model.readAllData('userData')
-        .then(data => {
-            var isThereAUsername = false
-            for (var i = 0; i < data.user.length; i++) {
-                if (userName === data.user[i].user_name && userPassword === data.user[i].password) {
-                    isThereAUsername = true
-                }
+// function getDataHero(userName, userPassword) {
+//     model.readAllData('userData')
+//         .then(data => {
+//             var isThereAUsername = false
+//             for (var i = 0; i < data.user.length; i++) {
+//                 if (userName === data.user[i].user_name && userPassword === data.user[i].password) {
+//                     isThereAUsername = true
+//                 }
+//             }
+//             if (isThereAUsername === true) {
+//                 return model.readAllData('heroData')
+//             } else {
+//                 console.log('wrong username and password')
+//             }
+//         })
+//         .then(data => {
+//             console.log(data)
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+// }
+
+async function getDataHero(userName, userPassword) {
+    try {
+        var userData = await model.readAllData('userData')
+        var isThereAUsername = false
+        for (var i = 0; i < userData.user.length; i++) {
+            if (userName === userData.user[i].user_name && userPassword === userData.user[i].password) {
+                isThereAUsername = true
             }
-            if (isThereAUsername === true) {
-                return model.readAllData('heroData')
-            } else {
-                console.log('wrong username and password')
-            }
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        }
+        if (isThereAUsername === true) {
+            var heroData = await model.readAllData('heroData')
+            console.log(heroData)
+        } else {
+            console.log('wrong username and password')
+        }
+    } catch(err) {
+        console.log(err)
+    }
+
 }
 
 function createDataHero(userName, userPassword, heroName, heroAvatar, heroRole, heroSpecially) {
