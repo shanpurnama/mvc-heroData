@@ -68,7 +68,7 @@ async function getDataHero(userName, userPassword) {
     try {
         var userData = await model.readAllData('userData')
         var isThereAUsername = false
-        for (var i = 0; i < userData.user.length; i++) {
+        for (var i = 0; i < userDataa.user.length; i++) {
             if (userName === userData.user[i].user_name && userPassword === userData.user[i].password) {
                 isThereAUsername = true
             }
@@ -131,20 +131,20 @@ async function createDataHero(userName, userPassword, heroName, heroAvatar, hero
         }
         if (isThereAUsername === true) {
             var heroData = await model.readAllData('heroData')
+            var newDataHero = {
+                hero_id: heroData.hero[heroData.hero.length -1].hero_id + 1,
+                hero_name: heroName,
+                hero_avatar: heroAvatar,
+                hero_role: heroRole,
+                hero_specially: heroSpecially
+            }
+            heroData.hero.push(newDataHero)
+            var dataStringify = JSON.stringify(heroData)
+            await model.writeAllData('heroData', dataStringify)
+            console.log('success added new hero')
         } else {
             console.log('wrong username and password')
         }
-        var newDataHero = {
-            hero_id: heroData.hero[heroData.hero.length -1].hero_id + 1,
-            hero_name: heroName,
-            hero_avatar: heroAvatar,
-            hero_role: heroRole,
-            hero_specially: heroSpecially
-        }
-        heroData.hero.push(newDataHero)
-        var dataStringify = JSON.stringify(heroData)
-        await model.writeAllData('heroData', dataStringify)
-        console.log('success added new hero')
     } catch(err){
         console.log(err)
     }
@@ -210,27 +210,28 @@ async function deleteDataHero(userName, userPassword, heroId) {
             }
         }
         if (isThereAUsername === true) {
+            if (isAdmin === true) {
+                var heroData = await model.readAllData('heroData')
+                var isExistHeroId = false
+                for (var i = 0; i < heroData.hero.length; i++) {
+                    if (heroId === heroData.hero[i].hero_id.toString()) {
+                        heroData.hero.splice(i, 1)
+                        isExistHeroId = true
+                    }
+                }
+                if (isExistHeroId === true) {
+                    var dataStringify = JSON.stringify(heroData)
+                    await model.writeAllData('heroData', dataStringify)
+                    console.log('succes delete hero by hero id')
+                } else {
+                    console.log('hero id not found, please use different hero id')
+                }
+                
+            } else {
+                console.log('you are not an admin, so you cant delete')
+            }
         } else {
             console.log('wrong username and password')
-        }
-        if (isAdmin === true) {
-            var heroData = await model.readAllData('heroData')
-            console.log('succes delete hero by hero id')
-        } else {
-            console.log('you are not an admin, so you cant delete')
-        }
-        var isExistHeroId = false
-        for (var i = 0; i < heroData.hero.length; i++) {
-            if (heroId === heroData.hero[i].hero_id.toString()) {
-                heroData.hero.splice(i, 1)
-                isExistHeroId = true
-            }
-        }
-        if (isExistHeroId === true) {
-            var dataStringify = JSON.stringify(heroData)
-            await model.writeAllData('heroData', dataStringify)
-        } else {
-            console.log('hero id not found, please use different hero id')
         }
     } catch(err) {
         console.log(err)
@@ -279,39 +280,48 @@ async function deleteDataHero(userName, userPassword, heroId) {
 //         })
 // }
 
-async function updateDataHero(userName, password, heroId, heroName, heroAvatar, heroRole, heroSpecially) {
+async function updateDataHero(userName, userPassword, heroId, heroName, heroAvatar, heroRole, heroSpecially) {
     try {
         var userData = await model.readAllData('userData')
         var isThereAUsername = false
         for (var i = 0; i < userData.user.length; i++) {
-            if (userName === userData.user[i].user_name && password === userData.user[i].password) {
+            if (userName === userData.user[i].user_name && userPassword === userData.user[i].password) {
                 isThereAUsername = true
             }
         }
         if (isThereAUsername === true) {
             var heroData = await model.readAllData('heroData')
-            console.log('succes update new data')
+            var isExistHeroId = false
+            for (var i = 0; i < heroData.hero.length; i++) {
+                if (heroId === heroData.hero[i].hero_id.toString()) {
+                    heroData.hero[i].hero_name = heroName
+                    heroData.hero[i].hero_avatar = heroAvatar
+                    heroData.hero[i].hero_role = heroRole
+                    heroData.hero[i].hero_specially = heroSpecially
+                    isExistHeroId = true
+                }
+            }
+            if (isExistHeroId === true) {
+                var dataStringify = JSON.stringify(heroData)
+                await model.writeAllData('heroData', dataStringify)
+                console.log('succes update new data')
+            } else {
+                console.log('hero id not found, please use different hero id')
+            }
         } else {
             console.log('wrong username and password')
         }
-        var isExistHeroId = false
-        for (var i = 0; i < heroData.hero.length; i++) {
-            if (heroId === heroData.hero[i].hero_id.toString()) {
-                heroData.hero[i].hero_name = heroName
-                heroData.hero[i].hero_avatar = heroAvatar
-                heroData.hero[i].hero_role = heroRole
-                heroData.hero[i].hero_specially = heroSpecially
-                isExistHeroId = true
-            }
-        }
-        if (isExistHeroId === true) {
-            var dataStringify = JSON.stringify(heroData)
-            await model.writeAllData('heroData', dataStringify)
-        } else {
-            console.log('hero id not found, please use different hero id')
-        }
     } catch(err) {
         console.log(err)
+    }
+}
+
+async function forHelp(userName, userPassword) {
+    var userData = await model.readAllData('userData')
+    for (var i = 0; i < userData.user.length; i++) {
+        if (userName === userData.user[i].user_name && userPassword === userData.user[i].password) {
+            console.log('SUCCESSFULY SHOW WAY TO HELP USER FOR RUN THESE CODE')
+        }
     }
 }
 
@@ -320,5 +330,6 @@ module.exports = {
     getDataHero,
     createDataHero,
     deleteDataHero,
-    updateDataHero
+    updateDataHero,
+    forHelp
 }
