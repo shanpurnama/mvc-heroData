@@ -68,7 +68,7 @@ async function getDataHero(userName, userPassword) {
     try {
         var userData = await model.readAllData('userData')
         var isThereAUsername = false
-        for (var i = 0; i < userDataa.user.length; i++) {
+        for (var i = 0; i < userData.user.length; i++) {
             if (userName === userData.user[i].user_name && userPassword === userData.user[i].password) {
                 isThereAUsername = true
             }
