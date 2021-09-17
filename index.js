@@ -5,7 +5,7 @@ var controller = require('./controller')
 
 if (command[0] === 'register') {
     controller.createUserData(command[1], command[2])
-}if (command[2] === 'read') {
+} else if (command[2] === 'read') {
     controller.getDataHero(command[0], command[1])
 } else if (command[2] === 'create') {
     controller.createDataHero(command[0], command[1], command[3], command[4], command[5], command[6]) 
@@ -13,8 +13,7 @@ if (command[0] === 'register') {
     controller.deleteDataHero(command[0], command[1], command[3])
 } else if (command[2] === 'update') {
     controller.updateDataHero(command[0],command[1], command[3], command[4], command[5], command[6], command[7])
-} else if (command[2] === 'help') {
-    controller.forHelp(command[0], command[1])
+} else {
     console.log('====== register ======')
     console.log('user will create a new user to user data')
     console.log('<register> <userID> <userName> <password> <userRole>')

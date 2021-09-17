@@ -316,14 +316,6 @@ async function updateDataHero(userName, userPassword, heroId, heroName, heroAvat
     }
 }
 
-async function forHelp(userName, userPassword) {
-    var userData = await model.readAllData('userData')
-    for (var i = 0; i < userData.user.length; i++) {
-        if (userName === userData.user[i].user_name && userPassword === userData.user[i].password) {
-            console.log('SUCCESSFULY SHOW WAY TO HELP USER FOR RUN THESE CODE')
-        }
-    }
-}
 
 module.exports = {
     createUserData,
@@ -331,5 +323,4 @@ module.exports = {
     createDataHero,
     deleteDataHero,
     updateDataHero,
-    forHelp
 }
